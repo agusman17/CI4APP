@@ -44,6 +44,10 @@ $app->initialize();
 $context = is_cli() ? 'php-cli' : 'web';
 $app->setContext($context);
 
+// Global helpers that should be available on every request
+helper('string');
+helper('inflector');
+
 /*
  *---------------------------------------------------------------
  * LAUNCH THE APPLICATION

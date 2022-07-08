@@ -32,17 +32,16 @@
 
     <div class="w-full my-8 overflow-hidden rounded-lg shadow-xs relative">
 
-        <!-- <form class="w-full py-7 px-2" action="user" method="GET">
-            <div class="relative">
-                <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-                    <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+        <form class="w-full py-7 px-2 mb-7" action="user" method="GET">
+            <div class="relative w-4/12 max-w-xl mr-6 focus-within:text-purple-500 float-right justify-between">
+                <div class="absolute inset-y-0 flex items-center pl-2">
+                    <svg class="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path>
                     </svg>
                 </div>
-                <input type="search" id="search" name="keyword" class="block p-4 pl-10 w-full text-sm text-gray-800 bg-gray-50 rounded-lg border border-gray-300 focus:ring-purple-500 focus:border-purple-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" placeholder="Type something then click search" required>
-                <button type="submit" name="submit" class="text-white absolute right-2.5 bottom-2.5 bg-purple-500 hover:bg-purple-600 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">Search</button>
+                <input id="search" name="keyword" class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input" type="text" placeholder="Type something then enter" aria-label="Search">
             </div>
-        </form> -->
+        </form>
 
         <div class="w-full overflow-x-auto">
             <hr>
@@ -67,7 +66,7 @@
                                     </div>
                                     <div>
                                         <p class="font-semibold"><?= $user['name']; ?></p>
-                                        <p class="text-xs text-gray-600 dark:text-gray-400">
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">
                                             <?= $user['email']; ?>
                                         </p>
                                     </div>
@@ -76,7 +75,7 @@
                             <td class="px-4 py-3 text-sm">
                                 <?= $user['no_handphone']; ?>
                             </td>
-                            <td class="px-4 py-3 text-xs">
+                            <td class="px-4 py-3 text-sm">
                                 <?= get_ina_date($user['created_at']); ?>
                             </td>
                             <td class="px-4 py-3 text-sm">
@@ -105,7 +104,9 @@
         </div>
         <div class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
             <span class="flex items-center col-span-3">
-                Page : <?= $currentPage; ?> Showing <?= 1 + ($currentPage * $dataPerPage) - $dataPerPage; ?>-<?= ($currentPage * $dataPerPage); ?>
+                <strong>Page :&nbsp;</strong><?= $currentPage; ?> |
+                <strong>&nbsp;Showing :&nbsp;</strong> <?= 1 + ($currentPage * $dataPerPage) - $dataPerPage; ?>-<?= ($currentPage == $totalPage) ? $totalData : ($currentPage * $dataPerPage); ?> |
+                <strong>&nbsp;Total :&nbsp;</strong><?= $totalData; ?>
             </span>
             <span class="col-span-2"></span>
             <!-- Pagination -->

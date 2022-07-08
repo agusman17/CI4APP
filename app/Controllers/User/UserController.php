@@ -4,36 +4,34 @@ namespace App\Controllers\User;
 
 use App\Controllers\BaseController;
 use App\Models\UserModel;
+use App\Models\RoleModel;
+use App\Models\RoleUserModel;
 
 class UserController extends BaseController
 {
 
-    protected $userModel;
+    protected $userModel, $roleModel, $roleUserModel;
+    protected $dataPerPage = 7;
 
     public function __construct()
     {
         $this->userModel = new UserModel();
+        $this->roleModel = new RoleModel();
+        $this->roleUserModel = new RoleUserModel();
     }
 
     public function index()
     {
-
-        $dataPerPage = 7;
         $currentPage = $this->request->getVar('page_user') ? $this->request->getVar('page_user') : 1;
-
-        $keyword = $this->request->getVar('keyword');
-
-        if ($keyword) {
-            $users = $this->userModel->search('keyword');
-        } else {
-            $users = $this->userModel;
-        }
+        $users = $this->userModel->search($this->request->getVar('keyword'), $this->dataPerPage);
 
         $data = [
-            'users'         => $users->paginate($dataPerPage, 'user'),
+            'users'         => $users,
             'pager'         => $this->userModel->pager,
             'currentPage'   => $currentPage,
-            'dataPerPage'   => $dataPerPage,
+            'dataPerPage'   => $this->dataPerPage,
+            'totalData'     => $this->userModel->pager->getTotal('user'),
+            'totalPage'     => $this->userModel->pager->getPageCount('user'),
         ];
 
         return view('user/index', $data);
@@ -43,6 +41,7 @@ class UserController extends BaseController
     {
         $data = [
             'validation' => \Config\Services::validation(),
+            'roles'      => $this->roleModel->findAll(),
         ];
 
         return view('user/create', $data);
@@ -50,10 +49,15 @@ class UserController extends BaseController
 
     public function edit($id)
     {
+        $roleUsers = $this->roleUserModel->where('user_id', $id)->findAll();
+
         $data = [
-            'user' => $this->userModel->find($id),
+            'user'       => $this->userModel->find($id),
             'validation' => \Config\Services::validation(),
+            'roles'      => $this->roleModel->findAll(),
+            'roleUsers'  => $roleUsers,
         ];
+
         return view('user/edit', $data);
     }
 
@@ -74,7 +78,18 @@ class UserController extends BaseController
                 'address'       => $this->request->getVar('address'),
             ]);
 
-            if ($result) {
+            $dataUser = $this->userModel->where('email', $this->request->getVar('email'));
+
+            foreach ($this->request->getVar('roles') as $role) {
+                $dataInsertRoleUser = array(
+                    'user_id' => $dataUser->id,
+                    'role_id' => $role,
+                );
+
+                $result2 = $this->roleUserModel->save($dataInsertRoleUser);
+            }
+
+            if ($result && $result2) {
                 session()->setFlashdata("save", "User data has been saved !");
                 return redirect()->to('/user')->withInput();
             }
@@ -105,7 +120,18 @@ class UserController extends BaseController
 
             $result = $this->userModel->save($dataUpdate);
 
-            if ($result) {
+            $result2 = $this->roleUserModel->where('user_id', $id)->delete();
+
+            foreach ($this->request->getVar('roles') as $role) {
+                $dataInsertRoleUser = array(
+                    'user_id' => $id,
+                    'role_id' => $role,
+                );
+
+                $result3 = $this->roleUserModel->save($dataInsertRoleUser);
+            }
+
+            if ($result && $result2 && $result3) {
                 session()->setFlashdata("update", "User data has been updated !");
                 return redirect()->to('/user');
             }
@@ -118,6 +144,8 @@ class UserController extends BaseController
     {
         try {
             $this->userModel->delete($id);
+            $this->roleUserModel->delete(['id' => $id]);
+
             session()->setFlashdata("delete", "User data has been deleted !");
             return redirect()->to('/user');
         } catch (\Exception $error) {
