@@ -15,9 +15,9 @@ class UserController extends BaseController
 
     public function __construct()
     {
-        $this->userModel = new UserModel();
-        $this->roleModel = new RoleModel();
-        $this->roleUserModel = new RoleUserModel();
+        $this->userModel        = new UserModel();
+        $this->roleModel        = new RoleModel();
+        $this->roleUserModel    = new RoleUserModel();
     }
 
     public function index()
@@ -78,11 +78,11 @@ class UserController extends BaseController
                 'address'       => $this->request->getVar('address'),
             ]);
 
-            $dataUser = $this->userModel->where('email', $this->request->getVar('email'));
+            $dataUser = $this->userModel->where('email', $this->request->getVar('email'))->first();
 
             foreach ($this->request->getVar('roles') as $role) {
                 $dataInsertRoleUser = array(
-                    'user_id' => $dataUser->id,
+                    'user_id' => $dataUser['id'],
                     'role_id' => $role,
                 );
 

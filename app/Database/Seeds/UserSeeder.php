@@ -43,20 +43,20 @@ class UserSeeder extends Seeder
          * u can uncomment code below
          */
 
-        $faker = Factory::create('id_ID');
-        for ($i = 0; $i < 77; $i++) {
-            $data = [
-                'name'          => $faker->firstName,
-                'email'         => $faker->email,
-                'password'      => password_hash('123456', PASSWORD_DEFAULT),
-                'no_handphone'  => $faker->phoneNumber,
-                'address'       => 'Jl. Saja Dulu No.1',
-                'created_at'    => Time::now(),
-                'updated_at'    => Time::now(),
-            ];
+        // $faker = Factory::create('id_ID');
+        // for ($i = 0; $i < 77; $i++) {
+        //     $data = [
+        //         'name'          => $faker->firstName,
+        //         'email'         => $faker->email,
+        //         'password'      => password_hash('123456', PASSWORD_DEFAULT),
+        //         'no_handphone'  => $faker->phoneNumber,
+        //         'address'       => 'Jl. Saja Dulu No.1',
+        //         'created_at'    => Time::now(),
+        //         'updated_at'    => Time::now(),
+        //     ];
 
-            // Simple Queries
-            $this->db->table('users')->insert($data);
-        }
+        //     // Simple Queries
+        //     $this->db->table('users')->insert($data);
+        // }
     }
 }

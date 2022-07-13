@@ -2,11 +2,7 @@
 
 <?= $this->section('content'); ?>
 <div class="container px-6 mx-auto grid">
-    <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
-        Dashboard
-    </h2>
-
-    <nav class="flex" aria-label="Breadcrumb">
+    <nav class="flex mt-9" aria-label="Breadcrumb">
         <ol class="inline-flex items-center space-x-1 md:space-x-3">
             <?= $this->include('layout/breadcumb'); ?>
         </ol>

@@ -1,36 +1,63 @@
 <?php $uri = service('uri'); ?>
 <!-- Desktop sidebar -->
-<aside class="z-20 hidden w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-shrink-0 border border-gray-100 border-r-gray-100">
-    <div class="py-4 text-gray-500 dark:text-gray-400">
-        <a class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200" href="#">
-            CI4APP
+<aside class="shadow-md z-20 hidden w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-shrink-0 border border-gray-100 border-r-gray-100">
+    <div class="py-4 text-gray-500 dark:text-gray-400 text-center">
+        <a class="text-xl text-gray-800 dark:text-gray-200" href="#">
+            <strong>CODEIGNITER 4</strong> APP
         </a>
+        <hr class="mt-5">
         <ul class="mt-6">
-            <li class="relative px-6 py-3">
-                <!-- <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg" aria-hidden="true"></span> -->
-                <a href="<?= base_url(''); ?>" class="<?php if ($uri->getTotalSegments() == 0) {
-                                                            echo 'text-gray-800 ';
-                                                        } ?>inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100">
+            <?php
+            $bgDashActive       = '';
+            $stripeDashActive   = 'hidden';
+            $themeDashActive    = 'gray';
+            if ($uri->getTotalSegments() == 0) {
+                $bgDashActive       = 'bg-purple-50';
+                $stripeDashActive   = '';
+                $themeDashActive    = 'purple';
+            }
+            ?>
+            <li class="relative px-6 py-3 <?= $bgDashActive; ?>">
+                <span class="absolute inset-y-0 left-0 w-0.5 bg-purple-600 rounded-tr-lg rounded-br-lg <?= $stripeDashActive; ?>" aria-hidden="true"></span>
+                <a href="<?= base_url(''); ?>" class="inline-flex items-center w-full text-sm font-normal transition-colors duration-150 text-<?= $themeDashActive; ?>-500 hover:text-<?= $themeDashActive; ?>-600 dark:hover:text-gray-200 dark:text-gray-100">
                     <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M3 5a2 2 0 012-2h10a2 2 0 012 2v8a2 2 0 01-2 2h-2.22l.123.489.804.804A1 1 0 0113 18H7a1 1 0 01-.707-1.707l.804-.804L7.22 15H5a2 2 0 01-2-2V5zm5.771 7H5V5h10v7H8.771z" clip-rule="evenodd" />
                     </svg>
                     <span class="ml-4">Dashboard</span>
                 </a>
             </li>
-            <li class="relative px-6 py-3">
-                <a class="<?php if ($uri->getTotalSegments() >= 1 && $uri->getSegment(1) == 'user') {
-                                echo 'text-gray-800 ';
-                            } ?> inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200" href="<?= base_url("user") ?>">
+            <?php
+            $bgUserActive       = '';
+            $stripeUserActive   = 'hidden';
+            $themeUserActive    = 'gray';
+            if ($uri->getTotalSegments() >= 1 && $uri->getSegment(1) == 'user') {
+                $bgUserActive       = 'bg-purple-50';
+                $stripeUserActive   = '';
+                $themeUserActive    = 'purple';
+            }
+            ?>
+            <li class="relative px-6 py-3 <?= $bgUserActive; ?>">
+                <span class="absolute inset-y-0 left-0 w-0.5 bg-purple-600 rounded-tr-lg rounded-br-lg <?= $stripeUserActive; ?>" aria-hidden="true"></span>
+                <a class="inline-flex items-center w-full text-sm font-normal transition-colors duration-150 text-<?= $themeUserActive; ?>-500 hover:text-<?= $themeUserActive; ?>-600 dark:hover:text-gray-200" href="<?= base_url("user") ?>">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                     <span class="ml-4">User</span>
                 </a>
             </li>
-            <li class="relative px-6 py-3">
-                <a href="<?= base_url('role'); ?>" class="<?php if ($uri->getTotalSegments() >= 1 && $uri->getSegment(1) == 'role') {
-                                                                echo 'text-gray-800 ';
-                                                            } ?> inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200" href="<?= base_url("user") ?>">
+            <?php
+            $bgRoleActive       = '';
+            $stripeRoleActive   = 'hidden';
+            $themeRoleActive    = 'gray';
+            if ($uri->getTotalSegments() >= 1 && $uri->getSegment(1) == 'role') {
+                $bgRoleActive       = 'bg-purple-50';
+                $stripeRoleActive   = '';
+                $themeRoleActive    = 'purple';
+            }
+            ?>
+            <li class="relative px-6 py-3 <?= $bgRoleActive; ?>">
+                <span class="absolute inset-y-0 left-0 w-0.5 bg-purple-600 rounded-tr-lg rounded-br-lg <?= $stripeRoleActive; ?>" aria-hidden="true"></span>
+                <a href="<?= base_url('role'); ?>" class="inline-flex items-center w-full text-sm font-normal transition-colors duration-150 text-<?= $themeRoleActive; ?>-500 hover:text-<?= $themeRoleActive; ?>-600 dark:hover:text-gray-200" href="<?= base_url("user") ?>">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M18 8a6 6 0 01-7.743 5.743L10 14l-1 1-1 1H6v2H2v-4l4.257-4.257A6 6 0 1118 8zm-6-4a1 1 0 100 2 2 2 0 012 2 1 1 0 102 0 4 4 0 00-4-4z" clip-rule="evenodd" />
                     </svg>
