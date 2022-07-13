@@ -45,7 +45,6 @@ class UserModel extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
-
     public function search($keyword, $dataPerPage)
     {
         if ($keyword == '') {

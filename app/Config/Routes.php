@@ -44,6 +44,7 @@ $routes->get('/', 'DashboardController::index', ['filter' => 'auth']);
 
 $routes->group("user", ["filter" => "auth"], function ($routes) {
     $routes->get('/', 'User\UserController::index');
+    $routes->get('getTable', 'User\UserController::getTable');
     $routes->get('create', 'User\UserController::create');
     $routes->get('edit/(:any)', 'User\UserController::edit/$1');
 

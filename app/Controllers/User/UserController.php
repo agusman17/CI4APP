@@ -11,10 +11,11 @@ class UserController extends BaseController
 {
 
     protected $userModel, $roleModel, $roleUserModel;
-    protected $dataPerPage = 7;
+    protected $dataPerPage = 5;
 
     public function __construct()
     {
+
         $this->userModel        = new UserModel();
         $this->roleModel        = new RoleModel();
         $this->roleUserModel    = new RoleUserModel();
@@ -22,8 +23,16 @@ class UserController extends BaseController
 
     public function index()
     {
+        return view('user/index');
+    }
+
+    public function getTable()
+    {
+
+        $keyword = $this->request->getVar('keyword');
+
         $currentPage = $this->request->getVar('page_user') ? $this->request->getVar('page_user') : 1;
-        $users = $this->userModel->search($this->request->getVar('keyword'), $this->dataPerPage);
+        $users = $this->userModel->search($keyword, $this->dataPerPage);
 
         $data = [
             'users'         => $users,
@@ -33,8 +42,7 @@ class UserController extends BaseController
             'totalData'     => $this->userModel->pager->getTotal('user'),
             'totalPage'     => $this->userModel->pager->getPageCount('user'),
         ];
-
-        return view('user/index', $data);
+        echo view('user/userTable', $data);
     }
 
     public function create()
