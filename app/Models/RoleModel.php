@@ -41,4 +41,13 @@ class RoleModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    public function getCostumer()
+    {
+        $roleCostumer = $this->table($this->table)
+            ->select('id')
+            ->where('name', 'Customer')
+            ->first();
+        return $roleCostumer['id'];
+    }
 }

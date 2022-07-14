@@ -24,6 +24,7 @@
             <?= csrf_field(); ?>
 
             <div class="grid grid-cols-2 gap-4">
+                <input type="hidden" name="agreement" value="true">
                 <label class="block text-sm mb-6">
                     <span class="text-gray-700 dark:text-gray-400">Name</span>
                     <?php
@@ -63,7 +64,7 @@
                     <?php
                     $errColorPassword = 'purple';
                     $hiddenPassword = 'hidden';
-                    if ($validation->hasError('email')) {
+                    if ($validation->hasError('password')) {
                         $errColorPassword = 'red';
                         $hiddenPassword = '';
                     }
@@ -75,9 +76,28 @@
                 </label>
 
                 <label class="block text-sm">
+                    <span class="text-gray-700 dark:text-gray-400">Password</span>
+                    <?php
+                    $errColorPasswordConf = 'purple';
+                    $hiddenPasswordConf = 'hidden';
+                    if ($validation->hasError('passconf')) {
+                        $errColorPasswordConf = 'red';
+                        $hiddenPasswordConf = '';
+                    }
+                    ?>
+                    <input name="passconf" <?= old('passconf'); ?> type="password" class="block w-full mt-1 text-sm border-<?= $errColorPasswordConf; ?>-300 dark:border-gray-600 dark:bg-gray-700 focus:border-<?= $errColorPasswordConf; ?>-400 focus:outline-none focus:shadow-outline-<?= $errColorPasswordConf; ?> dark:text-gray-300 dark:focus:shadow-outline-gray form-input" placeholder="Confirm the password">
+                    <span class="text-xs text-red-600 dark:text-red-400 <?= $hiddenPasswordConf ?>">
+                        <?= $validation->getError('passconf'); ?>
+                    </span>
+                </label>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4 mb-6">
+                <label class="block text-sm">
                     <span class="text-gray-700 dark:text-gray-400">No. Handphone</span>
                     <input name="no_handphone" value="<?= old('no_handphone'); ?>" class="block w-full mt-1 text-sm border-purple-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" placeholder="Example : 081542601537">
                 </label>
+                <div></div>
             </div>
 
             <label class="block text-sm">

@@ -15,7 +15,7 @@ class UserModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = true;
     protected $protectFields    = true;
-    protected $allowedFields    = ['name', 'email', 'password', 'no_handphone', 'address'];
+    protected $allowedFields    = ['name', 'email', 'password', 'no_handphone', 'address', 'verify_token', 'verify_at'];
 
     // Dates
     protected $useTimestamps = true;
@@ -26,12 +26,14 @@ class UserModel extends Model
 
     // Validation
     protected $validationRules      = [
-        'name'      => 'required',
-        'email'     => 'required|valid_email|is_unique[users.email]',
-        'password'  => 'required',
+        "name"      => "required",
+        "email"     => "required|valid_email|is_unique[users.email]",
+        "password"  => "required|min_length[6]",
+        "passconf"  => "required|matches[password]",
+        "agreement" => "required",
     ];
     protected $validationMessages   = [];
-    protected $skipValidation       = false;
+    protected $skipValidation       = true;
     protected $cleanValidationRules = true;
 
     // Callbacks

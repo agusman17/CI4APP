@@ -15,7 +15,6 @@ class UserController extends BaseController
 
     public function __construct()
     {
-
         $this->userModel        = new UserModel();
         $this->roleModel        = new RoleModel();
         $this->roleUserModel    = new RoleUserModel();
@@ -78,13 +77,15 @@ class UserController extends BaseController
                 return redirect()->to('/user/create')->withInput();
             }
 
-            $result = $this->userModel->save([
+            $data = [
                 'name'          => $this->request->getVar('name'),
                 'email'         => $this->request->getVar('email'),
                 'password'      => password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
                 'no_handphone'  => $this->request->getVar('no_handphone'),
                 'address'       => $this->request->getVar('address'),
-            ]);
+            ];
+
+            $result = $this->userModel->save($data);
 
             $dataUser = $this->userModel->where('email', $this->request->getVar('email'))->first();
 

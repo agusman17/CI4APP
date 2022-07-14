@@ -35,9 +35,23 @@ class Users extends Migration
                 'type'           => 'VARCHAR',
                 'constraint'     => 255,
             ],
+            'verify_token' => [
+                'type'           => 'VARCHAR',
+                'constraint'     => 255,
+                'null'           => TRUE,
+            ],
+            'forgot_token' => [
+                'type'           => 'VARCHAR',
+                'constraint'     => 255,
+                'null'           => TRUE,
+            ],
             'created_at' => [
                 'type'           => 'DATETIME',
                 'null'           => TRUE,
+            ],
+            'verify_at' => [
+                'type'          => 'DATETIME',
+                'null'          => TRUE,
             ],
             'updated_at' => [
                 'type'           => 'DATETIME',

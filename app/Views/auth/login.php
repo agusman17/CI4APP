@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login - Windmill Dashboard</title>
+    <title>Login</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="<?= base_url("assets/css/tailwind.output.css"); ?>" />
     <link rel="stylesheet" href="<?= base_url('assets/vendors/sweetalert2/css/sweetalert2.min.css'); ?>" />
@@ -45,8 +45,13 @@
                         <hr class="my-8" />
 
                         <p class="mt-4">
-                            <a class="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline" href="./forgot-password.html">
+                            <a class="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline" href="<?= base_url("forgot_password"); ?>">
                                 Forgot your password?
+                            </a>
+                        </p>
+                        <p class="mt-1">
+                            <a class="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline" href="<?= base_url("register"); ?>">
+                                Create account
                             </a>
                         </p>
                     </div>
@@ -67,6 +72,18 @@
                     showConfirmButton: false,
                     title: 'wrong authentication,',
                     text: '<?= session("message") ?>'
+                })
+            });
+        <?php } ?>
+    </script>
+
+    <script>
+        <?php if (session()->has("save")) { ?>
+            $(function() {
+                Swal.fire({
+                    type: 'success',
+                    title: 'Register Successfull',
+                    text: '<?= session("save") ?>'
                 })
             });
         <?php } ?>
