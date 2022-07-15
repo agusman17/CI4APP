@@ -1,0 +1,51 @@
+version: '3.7'
+
+services:
+  db:
+    image: postgres:12
+    container_name: ci_postgre
+    restart: always
+    environment:
+        - POSTGRES_DB=ci4app
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=123456
+    ports:
+        - 5431:5432
+    volumes:
+        - ./docker/postgres/:/docker-entrypoint-initdb.d/
+        # atas ini bisa diubah ke volume ?
+    networks:
+        - ci-network
+
+  php_fpm:
+    build:
+      context: ./
+      dockerfile: ./docker/php/Dockerfile
+    working_dir: /var/www/
+    container_name: ci_php_fpm
+    volumes:
+      - ci-volume:/var/www
+    depends_on:
+      - db
+    networks:
+      - ci-network
+
+  nginx_url:
+    image: nginx:latest
+    container_name: ci_nginx
+    networks:
+      - ci-network
+    volumes:
+      - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      - ci-volume:/var/www/
+    depends_on:
+      - php_fpm
+      - db
+    ports:
+      - "8074:80"
+      
+networks:
+  ci-network:
+    driver: bridge
+volumes:
+  ci-volume:
